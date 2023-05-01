@@ -1,6 +1,10 @@
 import http from "http";
+import path from "path";
+import { promises as fs } from "fs";
 
-const server = http.createServer((req, res) => {
+global["__dirname"] = path.dirname(new URL(import.meta.url).pathname);
+
+const server = http.createServer(async (req, res) => {
   // Destructuring the "req"
   let { url, method } = req;
 
@@ -56,6 +60,39 @@ const server = http.createServer((req, res) => {
       res.statusCode = 200;
       // Closing the comunication
       res.end();
+      break;
+    case "/favicon.ico":
+      // Specifying the path to the icon file
+      const faviconPath = path.join(__dirname, "favicon.ico");
+      try {
+        const data = await fs.readFile(faviconPath);
+        res.writeHead(200, { "Content-Type": "image/x-icon" });
+        res.end(data);
+      } catch (err) {
+        console.error(err);
+        // Root request
+        // Stablishing headers
+        res.setHeader("Content-Type", "text/html");
+        // Writing the answer
+        res.write(`
+          <html>
+            <head>
+              <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico">
+              <title>My App</title>
+            </head>
+            <body> 
+              <h1>&#128534; 500 The server is out of service</h1>
+              <p>We're sorry there was an error in our server...</p>
+              <p> ${err.message}</p>
+            </body>
+          </html>
+          `);
+        console.log(`🔴 Answering: 500 ${req.url} ${req.method}`);
+        // Stablishing the answer code
+        res.statusCode = 500;
+        // Closing comunication
+        res.end();
+      }
       break;
     default:
       // Root request
