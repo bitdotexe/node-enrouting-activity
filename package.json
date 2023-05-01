@@ -1,0 +1,30 @@
+{
+  "name": "node-enrouting",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Fist node enrouting activity for DWPC I topic",
+  "engines": {
+    "node": "20.x",
+    "npm": "9.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitdotexe/node-enrouting-activity.git"
+  },
+  "keywords": [
+    "node",
+    "dwpcI",
+    "itgam"
+  ],
+  "author": "@bitdotexe (UrielTG)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bitdotexe/node-enrouting-activity/issues"
+  },
+  "homepage": "https://github.com/bitdotexe/node-enrouting-activity#readme"
+}
